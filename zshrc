@@ -4,13 +4,15 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 
 # Useful oh-my-zsh plugins for Le Wagon bootcamps
-plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting history-substring-search)
+plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting history-substring-search ssh-agent direnv)
 
 # (macOS-only) Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/docs/Analytics.md
 export HOMEBREW_NO_ANALYTICS=1
 
 # Disable warning about insecure completion-dependent directories
 ZSH_DISABLE_COMPFIX=true
+
+# comment
 
 # Actually load Oh-My-Zsh
 source "${ZSH}/oh-my-zsh.sh"
@@ -70,3 +72,13 @@ export EDITOR=code
 
 # Set ipdb as the default Python debugger
 export PYTHONBREAKPOINT=ipdb.set_trace
+export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+export GH_BROWSER="'/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'"
+export GOOGLE_APPLICATION_CREDENTIALS="/home/agathe/code/lewagon/gcp/wagon-bootcamp-1672-405710-ccefefa6141c.json"
+
+export PYTHONPATH="/home/agathe/code/lewagon:$PYTHONPATH"
+# export PYTHONPATH="/home/agathe/code/lewagon/03-Decision-Science:$PYTHONPATH"
+# export PYTHONPATH="/home/agathe/code/lewagon_old/04-Decision-Science/01-Project-Setup/data-context-and-setup/olist"
+# export PYTHONPATH="/home/agathe/code/lewagon/07-ML-Ops/01-Train-at-scale/lecture_train_at_scale_agathe:/home/agathe/code/lewagon/olist"
+# \cp ~/.pyenv/shims/python ~/.pyenv/shims/pytest
+export KAGGLE_API_TOKEN=KGAT_2f136f4e3530a3b88e414c577a1a3445
