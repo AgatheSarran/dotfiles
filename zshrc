@@ -4,7 +4,12 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 
 # Useful oh-my-zsh plugins for Le Wagon bootcamps
-plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting history-substring-search ssh-agent direnv)
+plugins=(git gitfast last-working-dir common-aliases zsh-syntax-highlighting history-substring-search)
+# Add the omz ssh-agent plugin for WSL / Linux only (macOS handles this through Keychain in ~/.ssh/config)
+case "$(uname -s)" in
+  Darwin) ;;
+  Linux)  plugins+=('ssh-agent') ;;
+esac
 
 # (macOS-only) Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/docs/Analytics.md
 export HOMEBREW_NO_ANALYTICS=1
@@ -24,8 +29,10 @@ export PATH="${HOME}/.rbenv/bin:${PATH}" # Needed for Linux/WSL
 type -a rbenv > /dev/null && eval "$(rbenv init -)"
 
 # Load pyenv (to manage your Python versions)
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-type -a pyenv > /dev/null && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init - 2> /dev/null)" && RPROMPT+='[🐍 $(pyenv version-name)]'
+# Uncomment the next lines if you still run a pyenv based setup
+# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# type -a pyenv > /dev/null && eval "$(pyenv init -)" && eval "$(pyenv virtualenv-init - 2> /dev/null)" && RPROMPT+='[🐍 $(pyenv version-name)]'
+
 
 # Load nvm (to manage your node versions)
 export NVM_DIR="$HOME/.nvm"
@@ -74,11 +81,31 @@ export EDITOR=code
 export PYTHONBREAKPOINT=ipdb.set_trace
 export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
 export GH_BROWSER="'/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'"
-export GOOGLE_APPLICATION_CREDENTIALS="/home/agathe/code/lewagon/gcp/wagon-bootcamp-1672-405710-ccefefa6141c.json"
+# export GOOGLE_APPLICATION_CREDENTIALS="/home/agathe/code/lewagon/gcp/wagon-bootcamp-1672-405710-ccefefa6141c.json"
 
 export PYTHONPATH="/home/agathe/code/lewagon:$PYTHONPATH"
 # export PYTHONPATH="/home/agathe/code/lewagon/03-Decision-Science:$PYTHONPATH"
 # export PYTHONPATH="/home/agathe/code/lewagon_old/04-Decision-Science/01-Project-Setup/data-context-and-setup/olist"
 # export PYTHONPATH="/home/agathe/code/lewagon/07-ML-Ops/01-Train-at-scale/lecture_train_at_scale_agathe:/home/agathe/code/lewagon/olist"
 # \cp ~/.pyenv/shims/python ~/.pyenv/shims/pytest
-export KAGGLE_API_TOKEN=KGAT_2f136f4e3530a3b88e414c577a1a3445
+
+
+# . "$HOME/.local/bin/env"
+
+
+# Activate the Le Wagon Python venv and update the prompt
+LW_VENV="$HOME/.lewagon/venvs/lewagon"
+if [ -e $LW_VENV ]; then
+  export VIRTUAL_ENV_DISABLE_PROMPT=1
+  source $LW_VENV/bin/activate
+  RPROMPT+='[🐍 $VIRTUAL_ENV_PROMPT]'
+fi
+
+export PATH="$HOME/.local/bin:$PATH"
+
+
+# Hook direnv but only if direnv is installed
+if (( $+commands[direnv] )); then eval "$(direnv hook zsh)"; fi
+export BROWSER="/mnt/c/Program Files/Google/Chrome/Application/chrome.exe"
+export GH_BROWSER="'/mnt/c/Program Files/Google/Chrome/Application/chrome.exe'"
+eval "$(direnv hook zsh)"
