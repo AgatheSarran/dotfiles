@@ -18,14 +18,4 @@ alias stt="echo 'Launching VS Code instead of Sublime Text... (cf ~/.aliases)' &
 # Temrinal aliases
 # ----------------
 
-alias ca="code ."
 alias juno="jupyter notebook"
-alias ez="exec zsh"
-
-# ----------------
-# Git aliases
-# ----------------
-
-alias ga="git add"
-alias gcm="git commit -m"
-alias gpom="git push origin master"
